@@ -1,0 +1,13 @@
+[project]
+name = "envloader"
+version = "0.1.0"
+description = "A metaclass for automatically loading and converting environment variables."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "python-dotenv>=1.0.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
