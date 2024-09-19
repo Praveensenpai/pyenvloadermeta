@@ -7,10 +7,10 @@ load_dotenv()
 T = TypeVar("T")
 
 
-class EnvLoader(type):
+class EnvLoaderMeta(type):
     def __new__(
-        cls: Type["EnvLoader"], name: str, bases: tuple, dct: Dict[str, Any]
-    ) -> "EnvLoader":
+        cls: Type["EnvLoaderMeta"], name: str, bases: tuple, dct: Dict[str, Any]
+    ) -> "EnvLoaderMeta":
         annotations: Dict[str, Type[Any]] = dct.get("__annotations__", {})
         for key, type_ in annotations.items():
             env_value: str = os.getenv(key, "")
