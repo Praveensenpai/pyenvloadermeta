@@ -22,6 +22,7 @@ API_ID=123456
 API_HASH=dfdafdfasdff
 BOT_TOKEN=fasdfasfdafsd
 OZ=11.2
+POKEMON=["Pikachu", "Raichu's"]
 ```
 
 2. Define your class using `EnvLoaderMeta`:
@@ -34,6 +35,7 @@ class Env(metaclass=EnvLoaderMeta):
 	API_HASH: str
 	BOT_TOKEN: str
 	OZ: float
+	POKEMON: list[str]
 ```
 
 3. Access the environment variables as class attributes:
@@ -43,4 +45,5 @@ print(Env.API_ID)
 print(Env.API_HASH)
 print(Env.BOT_TOKEN)
 print(Env.OZ)
+print(Env.POKEMON)
 ```
