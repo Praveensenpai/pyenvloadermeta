@@ -9,7 +9,7 @@ with open(path.join(working_dir, "README.md"), "r", encoding="utf-8") as f:
 
 setup(
     name="pyenvloadermeta",
-    version="1.0.1",
+    version="1.0.2",
     author="Praveen",
     author_email="pvnt20@gmail.com",
     description="A metaclass for automatically loading and converting environment variables.",
