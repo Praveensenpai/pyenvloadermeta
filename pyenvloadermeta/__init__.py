@@ -1,4 +1,5 @@
 import os
+import json
 from dotenv import load_dotenv
 from typing import Type, Any, TypeVar, Dict
 
@@ -16,9 +17,23 @@ class EnvLoaderMeta(type):
             env_value: str = os.getenv(key, "")
             if not env_value:
                 raise ValueError(f"{key} environment variable is not set")
+
             try:
-                dct[key] = type_(type_(env_value))
-            except ValueError:
+                if (
+                    type_ is list
+                    or hasattr(type_, "__origin__")
+                    and type_.__origin__ is list
+                ):
+                    if not hasattr(type_, "__args__") or not type_.__args__:  # type: ignore
+                        raise TypeError(
+                            f"{key} must specify a type for the list, e.g. list[int] or list[str]"
+                        )
+
+                    element_type = type_.__args__[0]  # type: ignore
+                    dct[key] = [element_type(i) for i in json.loads(env_value)]
+                else:
+                    dct[key] = type_(env_value)
+            except (ValueError, json.JSONDecodeError):
                 raise ValueError(
                     f"Cannot convert {key} to {type_.__name__}. {key}={env_value}"
                 )
